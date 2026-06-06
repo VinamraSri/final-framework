@@ -7,15 +7,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class DashboardPage {
-
-    WebDriver driver;
-    WebDriverWait wait;
+public class DashboardPage extends BasePage{
 
     public DashboardPage(WebDriver driver)
     {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        super(driver);
     }
 
     By logoutButton = By.xpath("//i[contains(text(),'Logout')]");
@@ -24,8 +20,7 @@ public class DashboardPage {
 
     public String getSuccessMsg()
     {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(successMsg));
-        return this.driver.findElement(successMsg).getText().trim();
+        return getText(successMsg);
     }
 
     public boolean isLogoutButtonDisplayed()
@@ -35,14 +30,12 @@ public class DashboardPage {
 
     public String getPageTitle()
     {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(pageTitle));
-        return this.driver.findElement(pageTitle).getText().trim();
+        return getText(pageTitle);
     }
 
     public void clickOnLogoutButton()
     {
-        wait.until(ExpectedConditions.elementToBeClickable(logoutButton));
-        this.driver.findElement(logoutButton).click();
+        click(logoutButton);
     }
 
 }
