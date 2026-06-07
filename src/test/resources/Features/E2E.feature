@@ -46,7 +46,7 @@ Feature: E2E Test
     Scenario: Verify dynamic loading page
       When I am on dynamic loading page
       And I click on start button
-      Then I see the "Hello World!1"
+      Then I see the "Hello World!"
 
     Scenario: Verify Alert
       When I am on alert page
