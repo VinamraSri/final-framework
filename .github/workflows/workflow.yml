@@ -1,0 +1,40 @@
+name: Selenium Tests CI
+
+on:
+  workflow_dispatch:   # Manual trigger
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t final-framework .
+
+      - name: Run tests
+        run: |
+          docker run --name test-run final-framework || true
+
+      - name: Copy test reports from container
+        if: always()
+        run: |
+          docker cp test-run:/app/target/surefire-reports ./surefire-reports
+          docker cp test-run:/app/target/cucumber-reports ./cucumber-reports || true
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: |
+            surefire-reports/
+            cucumber-reports/
+
+      - name: Print failed tests to log
+        if: always()
+        run: |
+          echo "====== FAILED TESTS ======"
+          grep -r "FAILED\|ERROR\|Exception" ./surefire-reports/ || echo "No failures found"

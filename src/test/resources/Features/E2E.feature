@@ -21,3 +21,39 @@ Feature: E2E Test
     Then I should see the message "You logged into a secure area!"
     And I click on logout button
     Then I should redirect to login page
+
+
+    Scenario: Successfully check the check bok
+      When I am on checkbox page
+      And I wait for 2 second
+      Then I check the checkbox number "1"
+      And I wait for 2 second
+      And checkbox "1" should be selected
+      And checkbox "2" should be selected
+
+    Scenario Outline: Successfully select the value from dropdow
+      When I am on dropdown page
+      And I wait for 2 second
+      And I select "<option>" from dropdown
+      And I wait for 1 second
+      Then I see the "<option>" selected
+      Examples:
+        |option  |
+        |Option 1|
+        |Option 2|
+
+
+    Scenario: Verify dynamic loading page
+      When I am on dynamic loading page
+      And I click on start button
+      Then I see the "Hello World!1"
+
+    Scenario: Verify Alert
+      When I am on alert page
+      And I wait for 1 second
+      And I click on Alert button
+      Then I see the alert message "I am a JS Alert"
+      And I wait for 1 second
+      And I accept the alert
+      And I wait for 1 second
+
