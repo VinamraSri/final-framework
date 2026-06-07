@@ -1,5 +1,5 @@
 # Base image with Java + Maven
-FROM maven:3.9-eclipse-temurin-17
+FROM maven:3.9-eclipse-temurin-21
 
 # Install Chrome for Selenium
 RUN apt-get update && apt-get install -y \
