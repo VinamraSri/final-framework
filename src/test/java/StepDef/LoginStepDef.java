@@ -3,11 +3,15 @@ package StepDef;
 import Pages.DashboardPage;
 import Pages.LoginPage;
 import Utils.DriverManager;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
+
+import java.util.Map;
 
 public class LoginStepDef {
 
@@ -72,4 +76,9 @@ public class LoginStepDef {
                 "User is not able to redirect to login page");
     }
 
+    @When("I enter the credentials")
+    public void iEnterTheCredentials(DataTable dataTable) {
+        Map<String,String> map = dataTable.asMap(String.class, String.class);
+        login_page.loginToApplication(map.get("user"), map.get("password"));
+    }
 }

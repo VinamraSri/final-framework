@@ -57,3 +57,16 @@ Feature: E2E Test
       And I accept the alert
       And I wait for 1 second
 
+  Scenario: Find Email Id of Last name
+    When I am on data table page
+    And I wait for 1 second
+    And the email id for "Doe" is "jdoe@hotmail.com"
+
+  Scenario: Successfully login with valid credentials through data table
+    When I enter the credentials
+      |user        |tomsmith            |
+      |password    |SuperSecretPassword!|
+    And I click on "submit" button
+    Then I should see the message "You logged into a secure area!"
+    And I should see the page title "Secure Area"
+    And I should see the logout button visible
